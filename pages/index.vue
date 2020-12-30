@@ -1,11 +1,17 @@
 <template>
   <main class="container">
-    <h1>Hi from homepage</h1>
+    <AppHeader />
   </main>
 </template>
 
 <script>
-export default {}
+import AppHeader from '@/components/AppHead';
+
+export default {
+  components: {
+    AppHeader
+  }
+}
 </script>
 
 <style></style>
