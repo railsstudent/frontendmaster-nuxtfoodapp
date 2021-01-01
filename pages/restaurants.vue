@@ -1,16 +1,27 @@
 <template>
   <main class="container restaurant">
-    <h1>Restaurants</h1>
+    <div class="restaurantheading">
+      <h1>Restaurants</h1>
+      <AppSelect @change="selectedRestaurante = $event" />
+      <pre>{{ $data }}</pre>
+    </div>
     <AppRestaurantInfo />
   </main>
 </template>
 
 <script>
 import AppRestaurantInfo from '@/components/AppRestaurantInfo';
+import AppSelect from '@/components/AppSelect';
 
 export default {
   components: {
-    AppRestaurantInfo
+    AppRestaurantInfo,
+    AppSelect
+  },
+  data: function() {
+    return {
+      selectedRestaurante: ''
+    }
   }
 }
 </script>
