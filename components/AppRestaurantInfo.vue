@@ -11,7 +11,7 @@
           <div class="iteminfo">
             <div>
               <h4>{{ menuItem.item }}</h4>
-              <p>{{ getPrice(menuItem.price) }}</p>
+              <p>{{ priceFormatting(menuItem.price) }}</p>
             </div>
             <button class="ghost">View Item ></button>
           </div>
@@ -29,7 +29,7 @@ export default {
     ...mapState(['fooddata'])
   },
   methods: {
-    getPrice(price) {
+    priceFormatting(price) {
       return `$ ${price.toFixed(2)}`
     }
   }
