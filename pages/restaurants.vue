@@ -3,7 +3,6 @@
     <div class="restaurantheading">
       <h1>Restaurants</h1>
       <AppSelect @change="selectedRestaurant = $event" />
-      <pre>{{ $data }}</pre>
     </div>
     <AppRestaurantInfo :datasource="filteredFoodData" />
   </main>
