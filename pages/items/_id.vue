@@ -11,21 +11,21 @@
       <div :style="`background: url(../${currentItem.img}) no-repeat center center`"></div>
     </section>
     <section class="details">
-      <h1>{{ currentItem.item }}</h1>
-      <h3>{{ priceFormatting(currentItem.price) }}</h3>
+      <h1 class="item">{{ currentItem.item }}</h1>
+      <h3 class="price">{{ priceFormatting(currentItem.price) }}</h3>
       <div class="quantity">
         <input type="number" v-model="quantity" />
         <button class="primary">Add to cart - {{ priceFormatting(total) }}</button>
       </div>
       <fieldset v-if="currentItem.options">
-        <legend>Options</legend>
+        <legend><h3>Options</h3></legend>
         <div v-for="option of currentItem.options" :key="option">
           <input type="radio" :id="option" name="option" :value="option">
           <label :for="option">{{option}}</label>
         </div>
       </fieldset>
       <fieldset v-if="currentItem.addOns">
-        <legend>Add Ons</legend>
+        <legend><h3>Add Ons</h3></legend>
         <div v-for="addOn of currentItem.addOns" :key="addOn">
           <input type="checkbox" :id="addOn" name="addOn" :value="addOn">
           <label :for="addOn">{{addOn}}</label>
@@ -97,7 +97,7 @@ export default {
     grid-column: 2 / 3;
     grid-row: 1 / 4;
 
-    h1, h3 {
+    h1.item, h3.price {
       margin-bottom: 1rem;
     }
   }
