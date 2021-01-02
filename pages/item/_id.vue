@@ -8,7 +8,7 @@
       <h3 class="price">{{ priceFormatting(currentItem.price) }}</h3>
       <div class="quantity">
         <input type="number" v-model="quantity" />
-        <button class="primary">Add to cart - {{ priceFormatting(total) }}</button>
+        <button class="primary" @click="addToCart">Add to cart - {{ priceFormatting(total) }}</button>
       </div>
       <fieldset v-if="currentItem.options">
         <legend><h3>Options</h3></legend>
@@ -24,6 +24,10 @@
           <label :for="addOn">{{addOn}}</label>
         </div>
       </fieldset>
+      <AppToast v-if="cartSubmitted">
+        Order Submitted<br />
+        Check out more <nuxt-link to="/restaurants">restaurants</nuxt-link>
+      </AppToast>
     </section>
     <section class="options">
       <h3>Description</h3>
@@ -34,15 +38,20 @@
 
 <script>
 import { mapState } from 'vuex'
+import AppToast from '@/components/AppToast'
 
 export default {
+  components: {
+    AppToast
+  },
   data() {
     return {
       id: this.$route.params.id,
       quantity: 1,
       itemOptions: '',
       itemAddons: [],
-      itemSizeAndCost: []
+      itemSizeAndCost: [],
+      cartSubmitted: false
     }
   },
   computed: {
@@ -64,6 +73,16 @@ export default {
   methods: {
     priceFormatting(price) {
       return `$ ${price.toFixed(2)}`
+    },
+    addToCart() {
+      const formData = {
+        name: this.currentItem.item,
+        quantity: this.quantity,
+        itemOptions: this.itemOptions,
+        itemAddons: this.itemAddons,
+        itemSizeAndCost: this.itemSizeAndCost
+      }
+      this.cartSubmitted = true
     }
   }
 }
@@ -92,6 +111,7 @@ export default {
   .details {
     grid-column: 2 / 3;
     grid-row: 1 / 4;
+    position: relative;
 
     h1.item, h3.price {
       margin-bottom: 1rem;
