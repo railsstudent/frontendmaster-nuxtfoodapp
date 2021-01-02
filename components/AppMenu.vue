@@ -4,7 +4,7 @@
       <li><nuxt-link exact to="/"><AppLogo></AppLogo></nuxt-link></li>
       <li><nuxt-link to="/restaurants">Restaurants</nuxt-link></li>
     </ul>
-    <div v-if="count > 0" class="smallnum">{{ count }}</div>
+    <div v-if="cartCount > 0" class="smallnum">{{ cartCount }}</div>
     <nuxt-link to="/cart">Cart</nuxt-link>
   </nav>
 </template>
@@ -18,7 +18,7 @@ export default {
     AppLogo
   },
   computed: {
-    ...mapGetters(['count'])
+    ...mapGetters(['cartCount'])
   }
 }
 </script>

@@ -15,7 +15,7 @@ export const getters = {
     , 0)
     return total.toFixed(2)
   },
-  count: state => {
+  cartCount: state => {
     if (!state.cart.length) {
       return 0
     }

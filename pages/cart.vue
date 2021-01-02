@@ -1,7 +1,7 @@
 <template>
   <main class="container cart">
     <h2>Your Cart</h2>
-    <table v-if="cart.length">
+    <table v-if="cartCount > 0">
       <thead>
         <tr>
           <th>Item</th>
@@ -30,7 +30,7 @@
         </tr>
       </tbody>
     </table>
-    <AppEmpyCart v-else></AppEmpyCart>
+    <AppEmptyCart></AppEmptyCart>
   </main>
 </template>
 
@@ -44,7 +44,7 @@ export default {
   },
   computed: {
     ...mapState(['cart']),
-    ...mapGetters(['totalPrice'])
+    ...mapGetters(['totalPrice', 'cartCount'])
   },
 };
 </script>
