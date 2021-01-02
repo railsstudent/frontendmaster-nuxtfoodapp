@@ -13,7 +13,7 @@
               <h4>{{ menuItem.item }}</h4>
               <p>{{ priceFormatting(menuItem.price) }}</p>
             </div>
-            <nuxt-link :to="`/items/${menuItem.id}`">
+            <nuxt-link :to="`/item/${menuItem.id}`">
               <button class="ghost">View Item ></button>
             </nuxt-link>
           </div>

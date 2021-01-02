@@ -1,12 +1,5 @@
 <template>
   <main class="container">
-    <!-- <div class="container dynamic">
-      <pre>
-        id: {{ id }}
-        currentItem: {{ currentItem }}
-        quantity {{ quantity }}
-      </pre>
-    </div> -->
     <section class="image">
       <div :style="`background: url(../${currentItem.img}) no-repeat center center`"></div>
     </section>
@@ -19,15 +12,15 @@
       </div>
       <fieldset v-if="currentItem.options">
         <legend><h3>Options</h3></legend>
-        <div v-for="option of currentItem.options" :key="option">
-          <input type="radio" :id="option" name="option" :value="option">
+        <div v-for="option of currentItem.options" :key="option" >
+          <input type="radio" :id="option" name="option" :value="option" v-model="itemOptions">
           <label :for="option">{{option}}</label>
         </div>
       </fieldset>
       <fieldset v-if="currentItem.addOns">
         <legend><h3>Add Ons</h3></legend>
         <div v-for="addOn of currentItem.addOns" :key="addOn">
-          <input type="checkbox" :id="addOn" name="addOn" :value="addOn">
+          <input type="checkbox" :id="addOn" name="addOn" :value="addOn" v-model="itemAddons">
           <label :for="addOn">{{addOn}}</label>
         </div>
       </fieldset>
@@ -40,13 +33,16 @@
 </template>
 
 <script>
-import { mapState } from 'vuex';
+import { mapState } from 'vuex'
 
 export default {
   data() {
     return {
       id: this.$route.params.id,
-      quantity: 1
+      quantity: 1,
+      itemOptions: '',
+      itemAddons: [],
+      itemSizeAndCost: []
     }
   },
   computed: {
