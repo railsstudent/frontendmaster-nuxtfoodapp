@@ -68,7 +68,7 @@ export default {
     },
     combinedPrice() {
       const total = this.quantity * this.currentItem.price
-      return this.priceFormatting(total.toFixed(2))
+      return total.toFixed(2)
     }
   },
   methods: {
