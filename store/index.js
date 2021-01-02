@@ -14,6 +14,12 @@ export const getters = {
       acc + +item.combinedPrice
     , 0)
     return total.toFixed(2)
+  },
+  count: state => {
+    if (!state.cart.length) {
+      return 0
+    }
+    return state.cart.reduce((acc, item) => acc + +item.count, 0)
   }
 }
 

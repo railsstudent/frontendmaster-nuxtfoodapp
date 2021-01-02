@@ -1,7 +1,7 @@
 <template>
   <main class="container cart">
-    <h2>Cart</h2>
-    <table>
+    <h2>Your Cart</h2>
+    <table v-if="cart.length">
       <thead>
         <tr>
           <th>Item</th>
@@ -30,13 +30,18 @@
         </tr>
       </tbody>
     </table>
+    <AppEmpyCart v-else></AppEmpyCart>
   </main>
 </template>
 
 <script>
 import { mapState, mapGetters } from 'vuex';
+import AppEmptyCart from '@/components/AppEmptyCart.vue';
 
 export default {
+  components: {
+    AppEmptyCart
+  },
   computed: {
     ...mapState(['cart']),
     ...mapGetters(['totalPrice'])
