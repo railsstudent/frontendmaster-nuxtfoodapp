@@ -8,7 +8,7 @@
       <h3 class="price">{{ priceFormatting(currentItem.price) }}</h3>
       <div class="quantity">
         <input type="number" v-model="quantity" />
-        <button class="primary" @click="addToCart">Add to cart - {{ priceFormatting(total) }}</button>
+        <button class="primary" @click="addItemToCart">Add to cart - {{ combinedPrice }}</button>
       </div>
       <fieldset v-if="currentItem.options">
         <legend><h3>Options</h3></legend>
@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import { mapState } from 'vuex'
+import { mapState, mapMutations } from 'vuex'
 import AppToast from '@/components/AppToast'
 
 export default {
@@ -66,23 +66,25 @@ export default {
       }
       return null
     },
-    total() {
-      return this.quantity * this.currentItem.price
+    combinedPrice() {
+      return this.priceFormatting(this.quantity * this.currentItem.price)
     }
   },
   methods: {
+    ...mapMutations(['addToCart']),
     priceFormatting(price) {
       return `$ ${price.toFixed(2)}`
     },
-    addToCart() {
+    addItemToCart() {
       const formData = {
         name: this.currentItem.item,
-        quantity: this.quantity,
-        itemOptions: this.itemOptions,
-        itemAddons: this.itemAddons,
-        itemSizeAndCost: this.itemSizeAndCost
+        count: this.quantity,
+        options: this.itemOptions,
+        addOns: this.itemAddons,
+        combinedPrice: this.combinedPrice
       }
       this.cartSubmitted = true
+      this.addToCart(formData)
     }
   }
 }
