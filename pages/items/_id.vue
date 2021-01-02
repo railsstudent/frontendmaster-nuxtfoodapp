@@ -78,7 +78,6 @@ export default {
     width: 1000px;
     margin: 100px auto;
     display: grid;
-    // border: 1px solid red;
     grid-template-columns: 1fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
     grid-column-gap: 30px;
@@ -88,7 +87,6 @@ export default {
   .image {
     grid-column: 1 / 2;
     grid-row: 1 / 3;
-    border: 1px solid green;
 
     div {
       height: 100%;
