@@ -13,20 +13,24 @@
       <fieldset v-if="currentItem.options">
         <legend><h3>Options</h3></legend>
         <div v-for="option of currentItem.options" :key="option" >
-          <input type="radio" :id="option" name="option" :value="option" v-model="itemOptions">
+          <input type="radio" :id="option" name="option" :value="option" v-model="$v.itemOptions.$model">
           <label :for="option">{{option}}</label>
         </div>
       </fieldset>
       <fieldset v-if="currentItem.addOns">
         <legend><h3>Add Ons</h3></legend>
         <div v-for="addOn of currentItem.addOns" :key="addOn">
-          <input type="checkbox" :id="addOn" name="addOn" :value="addOn" v-model="itemAddons">
+          <input type="checkbox" :id="addOn" name="addOn" :value="addOn" v-model="$v.itemAddons.$model">
           <label :for="addOn">{{addOn}}</label>
         </div>
       </fieldset>
       <AppToast v-if="cartSubmitted">
         Order Submitted<br />
         Check out more <nuxt-link to="/restaurants">restaurants</nuxt-link>
+      </AppToast>
+      <AppToast v-else-if="error">
+        Please select options and/or<br />
+        add ons before continue
       </AppToast>
     </section>
     <section class="options">
@@ -39,6 +43,7 @@
 <script>
 import { mapState, mapMutations } from 'vuex'
 import AppToast from '@/components/AppToast'
+import { required } from 'vuelidate/lib/validators'
 
 export default {
   components: {
@@ -51,7 +56,16 @@ export default {
       itemOptions: '',
       itemAddons: [],
       itemSizeAndCost: [],
-      cartSubmitted: false
+      cartSubmitted: false,
+      error: false
+    }
+  },
+  validations: {
+    itemOptions: {
+      required
+    },
+    itemAddons: {
+      required
     }
   },
   computed: {
@@ -84,8 +98,17 @@ export default {
         addOns: this.itemAddons,
         combinedPrice: this.combinedPrice
       }
-      this.cartSubmitted = true
-      this.addToCart(formData)
+      const itemOptionsError = this.currentItem.options && !this.$v.itemOptions.required
+      const itemAddonsError = this.currentItem.addOns && !this.$v.itemAddons.required
+
+      this.cartSubmitted = false
+      this.error = false
+      if (itemOptionsError || itemAddonsError) {
+        this.error = true
+      } else {
+        this.cartSubmitted = true
+        this.addToCart(formData)
+      }
     }
   }
 }
