@@ -8,7 +8,7 @@
       <h3 class="price">{{ priceFormatting(currentItem.price) }}</h3>
       <div class="quantity">
         <input type="number" v-model="quantity" />
-        <button class="primary" @click="addItemToCart">Add to cart - {{ combinedPrice }}</button>
+        <button class="primary" @click="addItemToCart">Add to cart - {{ priceFormatting(combinedPrice) }}</button>
       </div>
       <fieldset v-if="currentItem.options">
         <legend><h3>Options</h3></legend>
@@ -67,13 +67,14 @@ export default {
       return null
     },
     combinedPrice() {
-      return this.priceFormatting(this.quantity * this.currentItem.price)
+      const total = this.quantity * this.currentItem.price
+      return this.priceFormatting(total.toFixed(2))
     }
   },
   methods: {
     ...mapMutations(['addToCart']),
     priceFormatting(price) {
-      return `$ ${price.toFixed(2)}`
+      return `$ ${price}`
     },
     addItemToCart() {
       const formData = {
